@@ -51,16 +51,58 @@ function addMessage(role, text) {
   name.className = "message-name";
   name.textContent = role === "user" ? "You" : "Nexora AI";
 
-  const paragraph = document.createElement("p");
-  paragraph.textContent = text;
+  const body = document.createElement("div");
+  body.className = "message-body";
+  if (role === "assistant") renderSafeMarkdown(body, text);
+  else {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    body.append(paragraph);
+  }
 
-  content.append(name, paragraph);
+  content.append(name, body);
   row.append(avatar, content);
   messages.append(row);
   messages.scrollTop = messages.scrollHeight;
   return paragraph;
 }
 
+function renderSafeMarkdown(container, text) {
+  let inCode = false;
+  let codeLines = [];
+  let list = null;
+  for (const line of text.split(String.fromCharCode(10))) {
+    if (line.trim().startsWith(String.fromCharCode(96, 96, 96))) {
+      if (!inCode) { inCode = true; codeLines = []; list = null; }
+      else {
+        const pre = document.createElement('pre');
+        const code = document.createElement('code');
+        code.textContent = codeLines.join(String.fromCharCode(10));
+        pre.append(code); container.append(pre); inCode = false;
+      }
+      continue;
+    }
+    if (inCode) { codeLines.push(line); continue; }
+    const heading = line.match(/^(#{1,3})\\s+(.+)$/);
+    const bullet = line.match(/^\\s*[-*]\\s+(.+)$/);
+    const numbered = line.match(/^\\s*\\d+[.)]\\s+(.+)$/);
+    if (bullet || numbered) {
+      const tag = bullet ? 'UL' : 'OL';
+      if (!list || list.tagName !== tag) { list = document.createElement(bullet ? 'ul' : 'ol'); container.append(list); }
+      const item = document.createElement('li'); item.textContent = (bullet || numbered)[1]; list.append(item);
+      continue;
+    }
+    list = null;
+    if (!line.trim()) continue;
+    const block = document.createElement(heading ? 'h' + (heading[1].length + 2) : 'p');
+    block.textContent = heading ? heading[2] : line;
+    container.append(block);
+  }
+  if (inCode) {
+    const pre = document.createElement('pre'); const code = document.createElement('code');
+    code.textContent = codeLines.join(String.fromCharCode(10)); pre.append(code); container.append(pre);
+  }
+}
 function renderConversation() {
   messages.replaceChildren();
 
