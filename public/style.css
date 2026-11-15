@@ -57,3 +57,12 @@ footer { padding-top: 16px; border-top: 1px solid #202b43; color: #74819f; text-
   .intro-copy { margin-bottom: 0; }
   .messages { height: 330px; }
 }
+.message-body { min-width: 0; color: #e2e7f5; font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; }
+.message-body p { margin: 0 0 9px; white-space: pre-wrap; }
+.message-body p:last-child { margin-bottom: 0; }
+.message-body h3, .message-body h4, .message-body h5 { margin: 12px 0 6px; color: #cbd4ff; font-size: 13px; }
+.message-body ul, .message-body ol { margin: 6px 0 10px; padding-left: 22px; }
+.message-body li { margin: 3px 0; }
+.message-body pre { max-width: 100%; overflow-x: auto; margin: 9px 0; padding: 12px; border: 1px solid #34415f; border-radius: 9px; background: #080d18; }
+.message-body pre code { color: #b9d8ff; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; white-space: pre; }
+.message-body code:not(pre code) { padding: 2px 5px; border-radius: 5px; background: #283653; color: #c8d7ff; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
