@@ -64,7 +64,7 @@ function addMessage(role, text) {
   row.append(avatar, content);
   messages.append(row);
   messages.scrollTop = messages.scrollHeight;
-  return paragraph;
+  return body;
 }
 
 function renderSafeMarkdown(container, text) {
@@ -147,13 +147,17 @@ form.addEventListener("submit", async (event) => {
       ? data.reply.trim()
       : "I couldn't create a response. Please try again.";
 
-    replyElement.textContent = reply;
+    replyElement.replaceChildren();
+    renderSafeMarkdown(replyElement, reply);
     history.push({ role: "assistant", content: reply });
     history = history.slice(-MAX_SAVED_MESSAGES);
     saveHistory();
   } catch (error) {
     history.pop();
-    replyElement.textContent = error.message || "Something went wrong. Please try again.";
+    replyElement.replaceChildren();
+    const errorText = document.createElement("p");
+    errorText.textContent = error.message || "Something went wrong. Please try again.";
+    replyElement.append(errorText);
   } finally {
     setBusy(false);
     promptInput.focus();
