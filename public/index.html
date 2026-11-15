@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090d18">
+  <meta name="description" content="Nexora AI — an intelligent assistant built to help you think, learn, and create.">
+  <title>Nexora AI Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Nexora AI home">
+        <span class="brand-mark">N</span>
+        <span>NEXORA <span class="brand-light">AI</span></span>
+      </a>
+      <span class="status"><span class="status-dot"></span> AI ASSISTANT</span>
+    </header>
+
+    <section class="chat-layout" aria-label="AI assistant">
+      <div class="intro">
+        <p class="eyebrow">YOUR INTELLIGENT ASSISTANT</p>
+        <h1>Ideas start<br><span>with a question.</span></h1>
+        <p class="intro-copy">Ask, explore, learn, and create with Nexora AI.</p>
+      </div>
+
+      <section class="chat-card">
+        <div class="chat-heading">
+          <div class="assistant-avatar">N</div>
+          <div>
+            <h2>Nexora Assistant</h2>
+            <p><span class="status-dot"></span> Ready to help</p>
+          </div>
+          <button id="clear-chat" class="clear-button" type="button">New chat</button>
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite">
+          <div class="message assistant-message">
+            <div class="message-avatar">N</div>
+            <div class="message-content">
+              <span class="message-name">Nexora AI</span>
+              <p>Hello! I'm Nexora, your AI assistant. What would you like to explore today?</p>
+            </div>
+          </div>
+        </div>
+
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="prompt">Your message</label>
+          <textarea id="prompt" rows="1" maxlength="2000" placeholder="Message Nexora AI..." required></textarea>
+          <button id="send-button" type="submit" aria-label="Send message">
+            <span>Send</span><span aria-hidden="true">↗</span>
+          </button>
+        </form>
+        <p class="disclaimer">AI can make mistakes. Check important information.</p>
+      </section>
+    </section>
+
+    <footer>© <span id="year"></span> Nexora AI · Intelligence. Innovation. Infinite Possibilities.</footer>
+  </main>
+</body>
+</html>
