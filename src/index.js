@@ -29,7 +29,7 @@ export default {
           return Response.json({ error: "The latest message must be from the user." }, { status: 400 });
         }
 
-        const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+        const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", {
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             ...messages
